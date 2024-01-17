@@ -5,7 +5,7 @@
 LOGFILE="/var/log/auth.log" # or /var/log/secure for RedHat/CentOS
 
 # Define the output HTML file
-OUTPUT_HTML="login_attempts_$(date +%Y%m%d).html"
+OUTPUT_HTML="login_attempts_$(date +%Y%m%d_%H%M%S).html"
 
 # Get today's date in the format used in log files
 TODAYS_DATE=$(date +"%b %d")
@@ -19,7 +19,7 @@ echo "<pre>" >> $OUTPUT_HTML
 # Extract today's login attempts (including SSH) and append them to the HTML file
 grep "$TODAYS_DATE" $LOGFILE | egrep 'sshd|login|session opened' >> $OUTPUT_HTML
 # Extract today's failed login attempts and append them to the HTML file
-#grep "$TODAYS_DATE" $LOGFILE | grep 'Failed password' >> $OUTPUT_HTML
+grep "$TODAYS_DATE" $LOGFILE | grep 'Failed password' >> $OUTPUT_HTML
 #=================================
 
 # Close the HTML tags
